@@ -6,9 +6,11 @@ preambule::preambule(int m_, int T_, double lamb_){
     m = m_;
     T = T_;
     lamb = lamb_;
+
     gen_poisson.seed(time(nullptr));
     dist_poisson = poisson_distribution<int> (T_ * lamb_);
-    gen = mt19937(rd());
+
+    gen = mt19937(time(nullptr));
     dist_uniform = uniform_real_distribution<> (0.0, (double)T);
     dist_exp = exponential_distribution<> (lamb_);
 }

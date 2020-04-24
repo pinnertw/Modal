@@ -12,7 +12,6 @@ class preambule{
         default_random_engine gen_poisson;
         // Loi poisson
         poisson_distribution<int> dist_poisson;
-        random_device rd;
         // Loi uniforme
         mt19937 gen;
         uniform_real_distribution<> dist_uniform;

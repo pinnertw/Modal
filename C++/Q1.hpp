@@ -6,7 +6,7 @@ using namespace std;
 #define pi pair<int, int>
 
 //    Q1
-class Q1_naif{
+class Q1{
     private:
         int P0;
         int T;
@@ -14,8 +14,8 @@ class Q1_naif{
         int m;
 
     public:
-        Q1_naif(int, int, double, int);
-        ~Q1_naif();
+        Q1(int, int, double, int);
+        ~Q1();
         int ruines_once();
         double ruines(int);
         int quantiles_once();

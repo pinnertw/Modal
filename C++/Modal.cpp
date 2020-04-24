@@ -1,30 +1,50 @@
 #include "preambule.hpp"
-#include "Q1_naif.hpp"
-#include "Q2_naif.hpp"
+#include "Q1.hpp"
+#include "Q2.hpp"
 
 #include<ctime>
 #include <chrono>
 #include <iostream>
+#include <iomanip>
+#include <string>
+#include <cmath>
+
 using namespace std;
 
 #define vi vector<int>
 #define pi pair<int, int>
 
+string questions []= {"  ", "Q1-1", "Q1-2", "Q2-1"};
+string methods []= {"  ", "Méthode de Monte-Carlo naïf", "Méthode de Monte-Carlo naïf", "Méthode de Monte-Carlo naïf"};
+
+void print_Q(int Q, int size, int P0, int T, int m, double quant){
+    if (abs(quant - 0) < 0.0000000001) cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<"-\t";
+    else cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<quant<<"\t";
+}
+
+void print_ruines(double ruines){
+    cout<<setw(11)<<ruines<<"\t";
+}
+
+void print_quant(pi quants){
+    cout<<setw(5)<<quants.first<<' '<<setw(5)<<quants.second<<"\t";
+}
+
 //        TEST
 void Q1_1_MC_naif(int size, int P0, int T, double lamb, int m){
-    Q1_naif Q1 = Q1_naif(P0, T, lamb, m);
-    cout<<"For Q1-1, we obtained "<<Q1.ruines(size)<<" with the method Monte-Carlo naif, coef P0 = "<<P0<<", T = "<<T<<", lamb = "<<lamb<<", m = "<<m<<endl;
+    Q1 inst = Q1(P0, T, lamb, m);
+    print_ruines(inst.ruines(size));
 }
 
 void Q1_2_MC_naif(int size, int P0, int T, double lamb, int m, double quantile){
-    Q1_naif Q1 = Q1_naif(P0, T, lamb, m);
-    pi quants = Q1.quantiles(size, quantile);
-    cout<<"For Q1-2, we obtained "<<quants.first<<" "<<quants.second<<" "<<" for quantile = "<<quantile<<" with the method Monte-Carlo naif, coef P0 = "<<P0<<", T = "<<T<<", lamb = "<<lamb<<", m = "<<m<<endl;
+    Q1 inst = Q1(P0, T, lamb, m);
+    pi quants = inst.quantiles(size, quantile);
+    print_quant(inst.quantiles(size, quantile));
 }
 
 void Q2_1_MC_naif(int size, int P0, int T, double lamb1, double lamb2, int m){
-    Q2_naif Q2 = Q2_naif(P0, T, lamb1, lamb2, m);
-    cout<<"For Q2-1, we obtained "<<Q2.ruines(size)<<" with the method Monte-Carlo naif, coef P0 = "<<P0<<", T = "<<T<<", lamb1 = "<<lamb1<<", lamb2 = "<<lamb2<<", m = "<<m<<endl;
+    Q2 inst = Q2(P0, T, lamb1, lamb2, m);
+    print_ruines(inst.ruines(size));
 }
 
 int main(){
@@ -39,6 +59,8 @@ int main(){
         uint64_t t = -duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
         cin>>Q>>size>>P0>>T>>m>>quant;
+        print_Q(Q, size, P0, T, m, quant);
+
         if (Q == 1){
             Q1_1_MC_naif(size, P0, T, 1. / 300., m);
         }
@@ -49,7 +71,7 @@ int main(){
             Q2_1_MC_naif(size, P0, T, 1. / 300., 1. / 110., m);
         }
         t += duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-        cout<<"Finished in "<<t<<" miliseconds\n"<<endl;
+        cout<<setw(10)<<t<<" ms\t"<<methods[Q]<<"\n"<<endl;
     }
   //Q1_1_MC_naif(size, P0, T, lamb, m);
   //Q1_2_MC_naif(size, P0, T, lamb, m, quant);

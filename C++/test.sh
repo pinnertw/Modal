@@ -1,2 +1,2 @@
 make simulation
-./simulation < test > result
+./simulation < test >> result

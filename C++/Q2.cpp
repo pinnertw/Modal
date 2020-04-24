@@ -1,4 +1,4 @@
-#include "Q2_naif.hpp"
+#include "Q2.hpp"
 #include<iostream>
 #include <vector>
 #include <algorithm>
@@ -8,7 +8,7 @@ using namespace std;
 #define pi pair<int, int>
 
 //    Q2
-Q2_naif::Q2_naif(int P0_, int T_, double lamb1_, double lamb2_, int m_){
+Q2::Q2(int P0_, int T_, double lamb1_, double lamb2_, int m_){
     P0 = P0_;
     T = T_;
     lamb1 = lamb1_;
@@ -16,33 +16,8 @@ Q2_naif::Q2_naif(int P0_, int T_, double lamb1_, double lamb2_, int m_){
     m = m_;
 }
 
-Q2_naif::~Q2_naif(){}
-/*
-int Q2_naif::ruines_once(){
-    vector<double> T1, T2;
-    int N1 = pre1->poisson();
-    int N2 = pre2->poisson();
-    int J2 = pre2->saut();
-    for (int j = 0; j < N1; j++) T1.push_back(pre1->uniform_time());
-    for (int j = 0; j < N2; j++) T2.push_back(pre2->uniform_time());
-    sort(T1.begin(), T1.end());
-    sort(T2.begin(), T2.end());
-    int somme = P0, index_T2 = 0;
-    for (int j = 0; j < N1; j++){
-        while ((index_T2 < N2) && (T2[index_T2] < T1[j])){
-            somme += J2;
-            if (somme < 0) return 1;
-            J2 *= -1;
-            index_T2++;
-        }
-        somme += pre1->saut();
-        if (somme < 0) return 1;
-    }
-    return 0;
-
-}
-*/
-int Q2_naif::ruines_once(){
+Q2::~Q2(){}
+int Q2::ruines_once(){
     preambule* pre1 = new preambule(m, T, lamb1);
     preambule* pre2 = new preambule(1, T, lamb2);
     int J2 = pre2->saut();
@@ -60,11 +35,13 @@ int Q2_naif::ruines_once(){
         if (somme < 0) return 1;
         T1 += pre1->exponential_time();
     }
+    delete pre1;
+    delete pre2;
     return 0;
 }
 
 
-double Q2_naif::ruines(int size){
+double Q2::ruines(int size){
     int ruine = 0;
     // (size) echantillionages.
     for (int i = 0; i < size; i++){
