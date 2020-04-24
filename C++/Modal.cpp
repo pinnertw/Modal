@@ -22,18 +22,18 @@ void print_Q(int Q, int size, int P0, int T, int m, double quant){
     else cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<quant<<"\t";
 }
 
-void print_ruines(double ruines){
-    cout<<setw(11)<<ruines<<"\t";
+void print_ruines(double ruines, int size){
+    cout<<setw(9)<<ruines<<"+/-" << setw(9)<<setprecision(6)<<1.96 * sqrt(ruines * (1 - ruines)) / sqrt(size)<<"\t";
 }
 
 void print_quant(pi quants){
-    cout<<setw(5)<<quants.first<<' '<<setw(5)<<quants.second<<"\t";
+    cout<<setw(10)<<quants.first<<' '<<setw(10)<<quants.second<<"\t";
 }
 
 //        TEST
 void Q1_1_MC_naif(int size, int P0, int T, double lamb, int m){
     Q1 inst = Q1(P0, T, lamb, m);
-    print_ruines(inst.ruines(size));
+    print_ruines(inst.ruines(size), size);
 }
 
 void Q1_2_MC_naif(int size, int P0, int T, double lamb, int m, double quantile){
@@ -44,7 +44,7 @@ void Q1_2_MC_naif(int size, int P0, int T, double lamb, int m, double quantile){
 
 void Q2_1_MC_naif(int size, int P0, int T, double lamb1, double lamb2, int m){
     Q2 inst = Q2(P0, T, lamb1, lamb2, m);
-    print_ruines(inst.ruines(size));
+    print_ruines(inst.ruines(size), size);
 }
 
 int main(){
