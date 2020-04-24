@@ -1,6 +1,7 @@
 #include "preambule.hpp"
 #include "Q1.hpp"
 #include <vector>
+#include <thread>
 #include <algorithm>
 
 using namespace std;
@@ -18,7 +19,7 @@ Q1::Q1(int P0_, int T_, double lamb_, int m_){
 
 Q1::~Q1(){}
 
-int Q1::ruines_once(){
+void Q1::ruines_once(Sum& sum){
     preambule* pre = new preambule (m, T, lamb);
     int N = pre->poisson();
     int somme = P0;
@@ -26,21 +27,24 @@ int Q1::ruines_once(){
         somme += pre->saut();
         if (somme < 0){
             delete pre;
-            return 1;
+            sum.incre();
         }
     }
     delete pre;
-    return 0;
 }
 
 
 double Q1::ruines(int size){
-    int ruine = 0;
+    Sum ruine;
+    vector<thread> threads;
     // (size) echantillionages.
     for (int i = 0; i < size; i++){
-        ruine += ruines_once();
+        threads.push_back(thread(&Q1::ruines_once, this, ref(ruine)));
     }
-    return (double) ruine / (double) size;
+    for (int i = 0; i < size; i++){
+        threads[i].join();
+    }
+    return (double) ruine.sum / (double) size;
 }
 
 int Q1::quantiles_once(){

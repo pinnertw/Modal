@@ -11,3 +11,7 @@ Question             size     P0                T   m    quantile        result 
 
     Q2-1	    100000000	   35	        14400	1	        -	   2.95e-06	   3140326 ms	Méthode de Monte-Carlo naïf
 
+    Q2-1	         1000	   35	        14400	1	        -	        0+/-        0	        27 ms	Méthode de Monte-Carlo naïf
+
+    Q2-1	        10000	   35	        14400	1	        -	        0+/-        0	       215 ms	Méthode de Monte-Carlo naïf
+

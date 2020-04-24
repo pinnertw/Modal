@@ -10,7 +10,7 @@ Q1.o:	Q1.cpp preambule.o
 Q2.o:	Q2.cpp preambule.o
 
 simulation: Modal.cpp Q1.o Q2.o preambule.o
-	$(CXX) $(CXXFLAGS) -o $@ Modal.cpp Q1.o Q2.o preambule.o
+	$(CXX) $(CXXFLAGS) -pthread -o $@ Modal.cpp Q1.o Q2.o preambule.o
 
 clean-objects:
 	rm -vf *.o

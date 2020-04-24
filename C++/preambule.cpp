@@ -1,18 +1,6 @@
 #include "preambule.hpp"
 #include <ctime>
-#include <mutex>
 using namespace std;;
-
-struct Sum{
-    int sum = 0;
-    mutex mu;
-    void incre(){
-        mu.lock();
-        sum++;
-        mu.unlock();
-    }
-};
-
 
 preambule::preambule(int m_, int T_, double lamb_){
     m = m_;
