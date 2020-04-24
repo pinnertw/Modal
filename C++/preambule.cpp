@@ -1,16 +1,31 @@
-#include <random>
+#include "preambule.hpp"
+#include <ctime>
 using namespace std;;
 
-int saut_1(){
-  return (rand() % 2) * 2 - 1;
+preambule::preambule(int m_, int T_, double lamb_){
+    m = m_;
+    T = T_;
+    lamb = lamb_;
+    gen_poisson.seed(time(nullptr));
+    dist_poisson = poisson_distribution<int> (T_ * lamb_);
+    gen = mt19937(rd());
+    dist_uniform = uniform_real_distribution<> (0.0, (double)T);
+    dist_exp = exponential_distribution<> (lamb_);
+}
+preambule::~preambule(){}
+
+int preambule::saut(){
+  return (m = 1)? (rand() % 2) * 2 - 1 : values[rand() % 12];
 }
 
-int saut_3(){
-  int a = rand() % 12;
-  if (a < 1) return -3;
-  else if (a < 3) return -2;
-  else if (a < 6) return -1;
-  else if (a < 9) return 1;
-  else if (a < 11) return 2;
-  else return 3;
+int preambule::poisson(){
+    return dist_poisson(gen_poisson);
+}
+
+double preambule::uniform_time(){
+    return dist_uniform(gen);
+}
+
+double preambule::exponential_time(){
+    return dist_exp(gen);
 }

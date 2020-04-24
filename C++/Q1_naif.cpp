@@ -1,73 +1,61 @@
-#include <random>
-#include <ctime>
+#include "preambule.hpp"
+#include "Q1_naif.hpp"
 #include <vector>
 #include <algorithm>
+
 using namespace std;
 
 #define vi vector<int>
 #define pi pair<int, int>
-
-extern int saut_1();
-extern int saut_3();
-
 //    Q1
-double ruines_Q1(int size, int P0, int T, double lamb, int m){
-  int ruine = 0;
-  int N;
-  int somme;
-  default_random_engine generator;
-  generator.seed(time(nullptr));
-  poisson_distribution<int> distribution(T * lamb);
 
+Q1_naif::Q1_naif(int P0_, int T_, double lamb_, int m_){
+    P0 = P0_;
+    T = T_;
+    lamb = lamb_;
+    m = m_;
+}
+
+Q1_naif::~Q1_naif(){}
+
+int Q1_naif::ruines_once(){
+    preambule* pre = new preambule (m, T, lamb);
+    int N = pre->poisson();
+    int somme = P0;
+    for (int i = 0; i < N; i++){
+        somme += pre->saut();
+        if (somme < 0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+double Q1_naif::ruines(int size){
+    int ruine = 0;
   // (size) echantillionages.
   for (int i = 0; i < size; i++){
-    N = distribution(generator);
-    somme = P0;
-    if (m == 1){
-      for (int j = 0; j < N; j++){
-        somme += saut_1();
-        if (somme < 0){
-          ruine += 1;
-          break;
-        }
-      }
-    }
-    else if (m == 3){
-      for (int j = 0; j < N; j++){
-        somme += saut_3();
-        if (somme < 0){
-          ruine += 1;
-          break;
-        }
-      }
-    }
+      ruine += ruines_once();
   }
   return (double) ruine / (double) size;
 }
 
-pi quantiles_Q1(int size, int P0, int T, double lamb, int m, double quantile){
-  vi echant (size, 0);
-  int N;
-  int somme;
-  default_random_engine generator;
-  generator.seed(time(nullptr));
-  poisson_distribution<int> distribution(T * lamb);
+int Q1_naif::quantiles_once(){
+    preambule* pre = new preambule (m, T, lamb);
+    int N = pre->poisson();
+    int somme = P0;
+    for (int i = 0; i < N; i++){
+        somme += pre->saut();
+    }
+    return somme;
+}
 
+pi Q1_naif::quantiles(int size, double quantile){
+  vi echant (size, 0);
   // (size) echantillionages.
   for (int i = 0; i < size; i++){
-    N = distribution(generator);
-    somme = P0;
-    if (m == 1){
-      for (int j = 0; j < N; j++){
-        somme += saut_1();
-      }
-    }
-    else if (m == 3){
-      for (int j = 0; j < N; j++){
-        somme += saut_3();
-      }
-    }
-    echant[i] = somme;
+    echant[i] = quantiles_once();
   }
   int index_bot = int(ceil(size * quantile));
   nth_element(echant.begin(), echant.begin() + index_bot, echant.end());
