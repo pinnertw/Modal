@@ -1,16 +1,28 @@
 #pragma once
 #include <random>
+#include <mutex>
+#include <iostream>
+#include <chrono>
 using namespace std;;
 
+struct Sum{
+    int sum = 0;
+    mutex mu;
+    void incre(){
+        mu.lock();
+        sum++;
+        mu.unlock();
+    }
+};
 
-static const bool DEBUG = true;
+static const int thread_max_1 = 6;
+static const int thread_max_2 = 2;
 static const int values [12]= {-3, -2, -2, -1, -1, -1, 1, 1, 1, 2, 2, 3};
 class preambule{
     private:
-        int m = 1;
-        int T = 4 * 60 * 60;
-        double lamb = 1. / 300.;
-        double lamb2 = 1. / 660.;
+        int m;
+        int T;
+        double lamb;
         default_random_engine gen_poisson;
         // Loi poisson
         poisson_distribution<int> dist_poisson;
@@ -27,3 +39,4 @@ class preambule{
         double uniform_time();
         double exponential_time();
 };
+

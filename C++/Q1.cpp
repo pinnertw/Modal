@@ -1,6 +1,5 @@
-#include "preambule.hpp"
+#include "ThreadPool.h"
 #include "Q1.hpp"
-#include <iostream>
 #include <vector>
 #include <algorithm>
 
@@ -19,7 +18,7 @@ Q1::Q1(int P0_, int T_, double lamb_, int m_){
 
 Q1::~Q1(){}
 
-int Q1::ruines_once(){
+void Q1::ruines_once(Sum& sum){
     preambule* pre = new preambule (m, T, lamb);
     int N = pre->poisson();
     int somme = P0;
@@ -27,21 +26,26 @@ int Q1::ruines_once(){
         somme += pre->saut();
         if (somme < 0){
             delete pre;
-            return 1;
+            sum.incre();
+            return;
         }
     }
     delete pre;
-    return 0;
+    return;
 }
 
 
 long double Q1::ruines(int size){
-    int ruine = 0;
-    // (size) echantillionages.
-    for (int i = 0; i < size; i++){
-        ruine += ruines_once();
+    Sum ruine;
+    ctpl::thread_pool p(thread_max_1);
+    int i = 0;
+    while(i < size){
+        auto task =  bind(&Q1::ruines_once, this, ref(ruine));
+        p.push(task);
+        i++;
     }
-    return (long double) ruine / (long double) size;
+    p.stop(true);
+    return (long double) ruine.sum / (long double) size;
 }
 
 int Q1::quantiles_once(){
