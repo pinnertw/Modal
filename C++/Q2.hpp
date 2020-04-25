@@ -14,6 +14,6 @@ class Q2{
     public:
         Q2(int, int, double, double, int);
         ~Q2();
-        void ruines_once(Sum&);
+        int ruines_once();
         long double ruines(int);
 };

@@ -5,7 +5,7 @@ sources = preambule.cpp Q1.cpp Q2.cpp
 headers = $(patsubst %.cpp,%.hpp,$(sources))
 objects = $(patsubst %.cpp,%.o,$(sources))
 
-preambule.o: preambule.cpp
+preambule.o: preambule.cpp preambule.hpp
 Q1.o:	Q1.cpp preambule.o ThreadPool.h
 Q2.o:	Q2.cpp preambule.o ThreadPool.h
 

@@ -17,6 +17,7 @@ using namespace std;
 string questions []= {"  ", "Q1-1", "Q1-2", "Q2-1"};
 string methods []= {"  ", "Méthode de Monte-Carlo naïf", "Méthode de Monte-Carlo naïf", "Méthode de Monte-Carlo naïf"};
 
+//       PRINT
 void print_Q(int Q, int size, int P0, int T, int m, double quant){
     if (abs(quant - 0) < 0.0000000001) cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<"-\t";
     else cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<quant<<"\t";

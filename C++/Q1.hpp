@@ -16,7 +16,7 @@ class Q1{
     public:
         Q1(int, int, double, int);
         ~Q1();
-        void ruines_once(Sum&);
+        int ruines_once();
         long double ruines(int);
         int quantiles_once();
         pi quantiles(int, double);

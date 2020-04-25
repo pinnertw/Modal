@@ -1,12 +1,14 @@
 #include "preambule.hpp"
-#include <chrono>
+#include <ctime>
+#include <mutex>
 using namespace std;;
 
 preambule::preambule(int m_, int T_, double lamb_){
     m = m_;
     T = T_;
     lamb = lamb_;
-    using namespace chrono;
+
+    using namespace std::chrono;
     gen_poisson.seed(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
     dist_poisson = poisson_distribution<int> (T_ * lamb_);
 
@@ -17,7 +19,7 @@ preambule::preambule(int m_, int T_, double lamb_){
 preambule::~preambule(){}
 
 int preambule::saut(){
-  return (m = 1)? (rand() % 2) * 2 - 1 : values[rand() % 12];
+  return (m == 1)? (rand() % 2) * 2 - 1 : values[rand() % 12];
 }
 
 int preambule::poisson(){

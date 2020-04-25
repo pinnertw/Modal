@@ -1,3 +1,3 @@
 make simulation
-./simulation < test >> result
+./simulation < test_debug
 sh ~/lescodes/sh/fin.sh
