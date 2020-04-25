@@ -1,9 +1,0 @@
-For Q1-1, we obtained 0.395683 with the method Monte-Carlo naif, coef P0 = 5, T = 14400, lamb = 0.00333333, m = 1
-Finished in 10747 miliseconds
-
-For Q1-2, we obtained -18 25  for quantile = 0.001 with the method Monte-Carlo naif, coef P0 = 5, T = 14400, lamb = 0.00333333, m = 1
-Finished in 10890 miliseconds
-
-For Q2-1, we obtained 0.430008 with the method Monte-Carlo naif, coef P0 = 5, T = 14400, lamb1 = 0.00333333, lamb2 = 0.00909091, m = 1
-Finished in 30811 miliseconds
-

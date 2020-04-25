@@ -15,5 +15,5 @@ class Q2{
         Q2(int, int, double, double, int);
         ~Q2();
         void ruines_once(Sum&);
-        double ruines(int);
+        long double ruines(int);
 };

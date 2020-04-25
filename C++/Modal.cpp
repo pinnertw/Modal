@@ -22,8 +22,8 @@ void print_Q(int Q, int size, int P0, int T, int m, double quant){
     else cout<<setw(8)<<questions[Q]<<"\t"<<setw(13)<<size<<"\t"<<setw(5)<<P0<<"\t"<<setw(13)<<T<<"\t"<<m<<"\t"<<setw(10)<<quant<<"\t";
 }
 
-void print_ruines(double ruines, int size){
-    cout<<setw(9)<<ruines<<"+/-" << setw(9)<<setprecision(6)<<1.96 * sqrt(ruines * (1 - ruines)) / sqrt(size)<<"\t";
+void print_ruines(long double ruines, int size){
+    cout<<setw(9)<<ruines<<"+/-" << setw(9)<<setprecision(6)<<1.96 * sqrt(ruines * (1 - ruines)) / (long double) sqrt(size)<<"\t";
 }
 
 void print_quant(pi quants){

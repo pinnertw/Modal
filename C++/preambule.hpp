@@ -2,6 +2,7 @@
 #include <random>
 #include <mutex>
 #include <iostream>
+#include <chrono>
 using namespace std;;
 
 struct Sum{
@@ -17,10 +18,9 @@ struct Sum{
 static const int values [12]= {-3, -2, -2, -1, -1, -1, 1, 1, 1, 2, 2, 3};
 class preambule{
     private:
-        int m = 1;
-        int T = 4 * 60 * 60;
-        double lamb = 1. / 300.;
-        double lamb2 = 1. / 660.;
+        int m;
+        int T;
+        double lamb;
         default_random_engine gen_poisson;
         // Loi poisson
         poisson_distribution<int> dist_poisson;
@@ -37,3 +37,4 @@ class preambule{
         double uniform_time();
         double exponential_time();
 };
+

@@ -1,8 +1,5 @@
 #include "Q2.hpp"
-#include<iostream>
-#include <thread>
-#include <vector>
-#include <algorithm>
+#include"ThreadPool.h"
 using namespace std;
 
 #define vi vector<int>
@@ -18,6 +15,7 @@ Q2::Q2(int P0_, int T_, double lamb1_, double lamb2_, int m_){
 }
 
 Q2::~Q2(){}
+
 void Q2::ruines_once(Sum& sum){
     preambule* pre1 = new preambule(m, T, lamb1);
     preambule* pre2 = new preambule(1, T, lamb2);
@@ -52,15 +50,18 @@ void Q2::ruines_once(Sum& sum){
 }
 
 
-double Q2::ruines(int size){
+long double Q2::ruines(int size){
     Sum ruine;
-    vector<thread> threads;
-    // (size) echantillionages.
-    for (int i = 0; i < size; i++){
-        threads.push_back(thread(&Q2::ruines_once, this, ref(ruine)));
+    ctpl::thread_pool p(10);
+    int i = 0;
+    while(i < size){
+        auto task = bind(&Q2::ruines_once, this, ref(ruine));
+        p.push(task);
+        i++;
     }
-    for (int i = 0; i < size; i++){
-        threads[i].join();
+    auto f = p.pop();
+    if (f) {
+        f(0);
     }
-    return (double) ruine.sum / (double) size;
+    return (long double) ruine.sum / (long double) size;
 }
