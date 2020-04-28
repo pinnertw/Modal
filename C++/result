@@ -1,22 +1,8 @@
 Question             size     P0                T   m    quantile                    result          time   Méthode
 
-    Q1-1	    100000000	   35	        14400	1	        -	  2.1e-07+/-8.98185e-08	    653359 ms	Méthode de Monte-Carlo naïf
+    Q1-1	    100000000	   35	        14400	1	        -	 1.94e-06+/-2.72996e-07	    389007 ms	Méthode de Monte-Carlo naïf
 
-    Q1-1	    100000000	   35	        14400	1	        -	  6.4e-07+/-1.568e-07	    398200 ms	Méthode de Monte-Carlo naïf
+    Q1-1	    100000000	   35	        14400	3	        -	0.00406324+/-1.24683e-05	    387448 ms	Méthode de Monte-Carlo naïf
 
-    Q1-1	         1000	   35	        14400	1	        -	        0+/-        0	         8 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	         1000	   35	        14400	3	        -	    0.003+/-0.00338972	         6 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	1	        -	        0+/-        0	       405 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	3	        -	   0.0014+/-0.000231748	       407 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	1	        -	        0+/-        0	       415 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	3	        -	  0.00125+/-0.000218998	       416 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	1	        -	        0+/-        0	       709 ms	Méthode de Monte-Carlo naïf
-
-    Q1-1	       100000	   35	        14400	3	        -	  0.00099+/-0.000194921	       750 ms	Méthode de Monte-Carlo naïf
+    Q2-1	    100000000	   35	        14400	1	        -	  1.4e-07+/-7.33365e-08	    199412 ms	Méthode de Monte-Carlo naïf
 

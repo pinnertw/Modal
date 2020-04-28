@@ -69,7 +69,7 @@ int main(){
             Q1_2_MC_naif(size, P0, T, 1. / 300., m, quant);
         }
         else if (Q == 3){
-            Q2_1_MC_naif(size, P0, T, 1. / 300., 1. / 110., m);
+            Q2_1_MC_naif(size, P0, T, 1. / 660., 1. / 110., m);
         }
         t += duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         cout<<setw(10)<<t<<" ms\t"<<methods[Q]<<"\n"<<endl;
