@@ -19,18 +19,20 @@ Q1::Q1(int P0_, int T_, double lamb_, int m_){
 Q1::~Q1(){}
 
 void Q1::ruines_once(Sum& sum){
-    preambule* pre = new preambule (m, T, lamb);
-    int N = pre->poisson();
+    // Random init
+    using namespace chrono;
+    mt19937_64 gen = mt19937_64(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
+    int N = poisson_distribution<int> (T * lamb)(gen);
+    uniform_int_distribution<> dist_uniform_int (0, 11);
+
     int somme = P0;
     for (int i = 0; i < N; i++){
-        somme += pre->saut();
+        somme += (m == 1)? (dist_uniform_int(gen) % 2) * 2 - 1 : values[dist_uniform_int(gen)];
         if (somme < 0){
-            delete pre;
             sum.incre();
             return;
         }
     }
-    delete pre;
     return;
 }
 
@@ -49,13 +51,16 @@ long double Q1::ruines(int size){
 }
 
 int Q1::quantiles_once(){
-    preambule* pre = new preambule (m, T, lamb);
-    int N = pre->poisson();
+    // init random
+    using namespace chrono;
+    mt19937_64 gen = mt19937_64(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
+    int N = poisson_distribution<int> (T * lamb)(gen);
+    uniform_int_distribution<> dist_uniform_int (0, 11);
+
     int somme = P0;
     for (int i = 0; i < N; i++){
-        somme += pre->saut();
+        somme += (m == 1)? (dist_uniform_int(gen) % 2) * 2 - 1 : values[dist_uniform_int(gen)];
     }
-    delete pre;
     return somme;
 }
 

@@ -17,35 +17,33 @@ Q2::Q2(int P0_, int T_, double lamb1_, double lamb2_, int m_){
 Q2::~Q2(){}
 
 void Q2::ruines_once(Sum& sum){
-    preambule* pre1 = new preambule(m, T, lamb1);
-    preambule* pre2 = new preambule(1, T, lamb2);
-    int J2 = pre2->saut();
+    using namespace chrono;
+    mt19937_64 gen = mt19937_64(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
+    uniform_int_distribution<> dist_uniform_int(0, 11);
+    exponential_distribution<> dist_exp_1(lamb1);
+    exponential_distribution<> dist_exp_2(lamb2);
+
+    int J2 = (dist_uniform_int(gen) % 2) * 2 - 1;
     int somme = P0;
-    double T1 = pre1->exponential_time();
-    double T2 = pre2->exponential_time();
+    double T1 = dist_exp_1(gen);
+    double T2 = dist_exp_2(gen);
     while (T1 <= T){
         while ((T2 < T) && T2 < T1){
             somme += J2;
             if (somme < 0) {
-                delete pre1;
-                delete pre2;
                 sum.incre();
                 return;
             }
             J2 *= -1;
-            T2 += pre2->exponential_time();
+            T2 += dist_exp_2(gen);
         }
-        somme += pre1->saut();
+        somme += (m == 1)? (dist_uniform_int(gen) % 2) * 2 - 1 : values[dist_uniform_int(gen)];
         if (somme < 0) {
-            delete pre1;
-            delete pre2;
             sum.incre();
             return;
         }
-        T1 += pre1->exponential_time();
+        T1 += dist_exp_1(gen);
     }
-    delete pre1;
-    delete pre2;
     return;
 }
 
