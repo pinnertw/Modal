@@ -39,7 +39,6 @@ void Q1_1_MC_naif(int size, int P0, int T, double lamb, int m){
 
 void Q1_2_MC_naif(int size, int P0, int T, double lamb, int m, double quantile){
     Q1 inst = Q1(P0, T, lamb, m);
-    pi quants = inst.quantiles(size, quantile);
     print_quant(inst.quantiles(size, quantile));
 }
 
