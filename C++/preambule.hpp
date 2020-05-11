@@ -15,6 +15,6 @@ struct Sum{
     }
 };
 
-static const int thread_max_1 = 6;
-static const int thread_max_2 = 2;
+static const int thread_max_1 = 5;
+static const int thread_max_2 = 4;
 static const int values [12]= {-3, -2, -2, -1, -1, -1, 1, 1, 1, 2, 2, 3};
