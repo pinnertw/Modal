@@ -41,7 +41,7 @@ def Q2_1_MC_n(P0, T, m, size):
 P0=35
 T = 4*3600
 m = 1
-M=int(1e9)
+M=int(1e10)
 
 p_r = Q2_1_MC_n(P0, T, 1, M)
 
